@@ -1,0 +1,444 @@
+
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 40
+Server version: 5.5.16 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2011, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use workers;
+Database changed
+mysql> drop table worker;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> CREATE TABLE Worker (
+    ->
+    -> WORKER_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    -> FIRST_NAME VARCHAR(20),
+    -> LAST_NAME VARCHAR(20),
+    -> SALARY INT(20),
+    -> JOINING_DATE DATETIME,
+    -> DEPARTMENT VARCHAR(10));
+Query OK, 0 rows affected (0.12 sec)
+
+mysql>
+mysql> INSERT INTO Worker (WORKER_ID, FIRST_NAME, LAST_NAME, SALARY, JOINING_DATE, DEPARTMENT)
+    -> VALUES  ( 'VIDYA', 'CHORAGE', 100000, '14-10-01 09.00.00', 'HR'),
+    -> ( 'POONAM', 'DAMBARKE', 80000, '29-03-21 09.00.00', 'Admin'),
+    -> ( 'ANIKET', 'RANJAVN', 300000, '18-09-01 09.00.00', 'HR'),
+    -> ( 'APARNA', 'DAMBARKE',100000, '13-02-01 09.00.00', 'Admin'),
+    -> ( 'VIJAY', 'JADHAV', 500000, '31-05-01 09.00.00', 'Admin'),
+    -> ( 'BIPIN', 'MASKAR', 200000, '05-05-01 09.00.00', 'Account'),
+    -> ( 'RUPESH', 'DAMBARKE', 75000, '18-03-01 09.00.00', 'Account'),
+    -> ( 'VISHAL', 'CHORAGE', 90000, '14-04-01 09.00.00', 'Admin');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT INTO Worker ( FIRST_NAME, LAST_NAME, SALARY, JOINING_DATE, DEPARTMENT)
+    -> VALUES  ( 'VIDYA', 'CHORAGE', 100000, '14-10-01 09.00.00', 'HR'),
+    -> ( 'POONAM', 'DAMBARKE', 80000, '29-03-21 09.00.00', 'Admin'),
+    -> ( 'ANIKET', 'RANJAVN', 300000, '18-09-01 09.00.00', 'HR'),
+    -> ( 'APARNA', 'DAMBARKE',100000, '13-02-01 09.00.00', 'Admin'),
+    -> ( 'VIJAY', 'JADHAV', 500000, '31-05-01 09.00.00', 'Admin'),
+    -> ( 'BIPIN', 'MASKAR', 200000, '05-05-01 09.00.00', 'Account'),
+    -> ( 'RUPESH', 'DAMBARKE', 75000, '18-03-01 09.00.00', 'Account'),
+    -> ( 'VISHAL', 'CHORAGE', 90000, '14-04-01 09.00.00', 'Admin');
+Query OK, 8 rows affected (0.02 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM WORKER;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | VIDYA      | CHORAGE   | 100000 | 2014-10-01 09:00:00 | HR         |
+|         2 | POONAM     | DAMBARKE  |  80000 | 2029-03-21 09:00:00 | Admin      |
+|         3 | ANIKET     | RANJAVN   | 300000 | 2018-09-01 09:00:00 | HR         |
+|         4 | APARNA     | DAMBARKE  | 100000 | 2013-02-01 09:00:00 | Admin      |
+|         5 | VIJAY      | JADHAV    | 500000 | 2031-05-01 09:00:00 | Admin      |
+|         6 | BIPIN      | MASKAR    | 200000 | 2005-05-01 09:00:00 | Account    |
+|         7 | RUPESH     | DAMBARKE  |  75000 | 2018-03-01 09:00:00 | Account    |
+|         8 | VISHAL     | CHORAGE   |  90000 | 2014-04-01 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+8 rows in set (0.00 sec)
+
+mysql> -- SQL QUESTIONS
+mysql>
+mysql> -- 1) WRITE A QUERY TO FETCH THE FIRST_NAME FROM WORKER TABLE USING ALIAS NAME AS WORKER_NAME.
+mysql>
+mysql> SELECT FIRST_NAME AS WORKER_NAME FROM WORKER ;
++-------------+
+| WORKER_NAME |
++-------------+
+| VIDYA       |
+| POONAM      |
+| ANIKET      |
+| APARNA      |
+| VIJAY       |
+| BIPIN       |
+| RUPESH      |
+| VISHAL      |
++-------------+
+8 rows in set (0.00 sec)
+
+mysql> -- 2) WRITE A QUERY TO FETCH UNIQUE VALUES OF DEPARTMENT FROM THE WORKER TABLE.
+mysql>
+mysql> SELECT DISTINCT(DEPARTMENT) FROM WORKER;
++------------+
+| DEPARTMENT |
++------------+
+| HR         |
+| Admin      |
+| Account    |
++------------+
+3 rows in set (0.00 sec)
+
+mysql>
+mysql> -- 3) WRITE A QUERY TO SHOW THE LAST 5 RECORDS FROM THE WORKER TABLE.
+mysql>
+mysql> SELECT * FROM WORKER
+    -> ORDER BY WORKER_ID DESC
+    -> LIMIT 5;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         8 | VISHAL     | CHORAGE   |  90000 | 2014-04-01 09:00:00 | Admin      |
+|         7 | RUPESH     | DAMBARKE  |  75000 | 2018-03-01 09:00:00 | Account    |
+|         6 | BIPIN      | MASKAR    | 200000 | 2005-05-01 09:00:00 | Account    |
+|         5 | VIJAY      | JADHAV    | 500000 | 2031-05-01 09:00:00 | Admin      |
+|         4 | APARNA     | DAMBARKE  | 100000 | 2013-02-01 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> -- 4) WRITE A QUERY TO PRINT THE FIRST THREE CHARACTERS OF FIRST_NAME FROM WORKER TABLE.
+mysql>
+mysql> SELECT left(FIRST_NAME,3) AS FIRST_NAME_3_CHAR
+    -> FROM WORKER;
++-------------------+
+| FIRST_NAME_3_CHAR |
++-------------------+
+| VID               |
+| POO               |
+| ANI               |
+| APA               |
+| VIJ               |
+| BIP               |
+| RUP               |
+| VIS               |
++-------------------+
+8 rows in set (0.00 sec)
+
+mysql> -- 5) WRITE AN SQL QUERY TO FIND THE POSITION OF THE ALPHABET 'p' IN THE FIRST_NAME COLUMN 'POONAM' FROM WORKER TABLE.
+mysql>
+mysql> SELECT LOCATE("p" , "POONAM",2);
++--------------------------+
+| LOCATE("p" , "POONAM",2) |
++--------------------------+
+|                        0 |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql> -- 7) WRITE A SQL QUERY TO PRINT THE FIRST NAME FROM THE WORKERS TABLE AFTER REMOVING WHITE SPACES FROM THE RIGHT SIDE.
+mysql>
+mysql> SELECT RTRIM(FIRST_NAME) AS TRIMMED_FIRST_NAMES
+    -> FROM WORKER;
++---------------------+
+| TRIMMED_FIRST_NAMES |
++---------------------+
+| VIDYA               |
+| POONAM              |
+| ANIKET              |
+| APARNA              |
+| VIJAY               |
+| BIPIN               |
+| RUPESH              |
+| VISHAL              |
++---------------------+
+8 rows in set (0.00 sec)
+
+mysql> -- 8) WRITE AN SQL QUERY THAT FETCHES THE UNIQUE VALUES OF DEPARTMENT FROM WORKER TABLE AND PRINTS ITS LENGTH.
+mysql>
+mysql> SELECT DISTINCT(DEPARTMENT) AS UNIQUE_DEPARTMENTS, LENGTH(DEPARTMENT) AS LENGTH_OF_DEPT_NAMES
+    -> FROM WORKER;
++--------------------+----------------------+
+| UNIQUE_DEPARTMENTS | LENGTH_OF_DEPT_NAMES |
++--------------------+----------------------+
+| HR                 |                    2 |
+| Admin              |                    5 |
+| Account            |                    7 |
++--------------------+----------------------+
+3 rows in set (0.00 sec)
+
+mysql>
+mysql> -- 10) WRITE AN SQL QUERY TO PRINT THE FIRST_NAME COLUMN FROM THE WORKER TABLE AFTER REPLACING 'v' WITH 'V'.
+mysql>
+mysql> SELECT REPLACE(FIRST_NAME,'V','v') AS REPLACED_NAME
+    -> FROM WORKER;
++---------------+
+| REPLACED_NAME |
++---------------+
+| vIDYA         |
+| POONAM        |
+| ANIKET        |
+| APARNA        |
+| vIJAY         |
+| BIPIN         |
+| RUPESH        |
+| vISHAL        |
++---------------+
+8 rows in set (0.00 sec)
+
+mysql> -- 11) WRITE AN SQL QUERY TO PRINT ALL WORKER DETAILS FROM THE WORKER TABLE ORDER BY FIRST_NAME ASCENDING AND DEPARTMENT DESCENDING.
+mysql>
+mysql> SELECT *
+    -> FROM WORKER
+    -> ORDER BY FIRST_NAME ASC, DEPARTMENT DESC;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         3 | ANIKET     | RANJAVN   | 300000 | 2018-09-01 09:00:00 | HR         |
+|         4 | APARNA     | DAMBARKE  | 100000 | 2013-02-01 09:00:00 | Admin      |
+|         6 | BIPIN      | MASKAR    | 200000 | 2005-05-01 09:00:00 | Account    |
+|         2 | POONAM     | DAMBARKE  |  80000 | 2029-03-21 09:00:00 | Admin      |
+|         7 | RUPESH     | DAMBARKE  |  75000 | 2018-03-01 09:00:00 | Account    |
+|         1 | VIDYA      | CHORAGE   | 100000 | 2014-10-01 09:00:00 | HR         |
+|         5 | VIJAY      | JADHAV    | 500000 | 2031-05-01 09:00:00 | Admin      |
+|         8 | VISHAL     | CHORAGE   |  90000 | 2014-04-01 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+8 rows in set (0.00 sec)
+
+mysql> -- 12) WRITE AN SQL QUERY TO FETCH THE NAMES OF THE WORKERS WHO EARN THE HIGHEST SALARY.
+mysql>
+mysql> SELECT FIRST_NAME, LAST_NAME, SALARY
+    -> FROM WORKER
+    -> WHERE SALARY = (SELECT SALARY FROM WORKER ORDER BY SALARY DESC LIMIT 1);
++------------+-----------+--------+
+| FIRST_NAME | LAST_NAME | SALARY |
++------------+-----------+--------+
+| VIJAY      | JADHAV    | 500000 |
++------------+-----------+--------+
+1 row in set (0.00 sec)
+
+mysql> -- 13) WRITE AN SQL QUERY TO PRINT DETAILS OF WORKERS EXCLUDING FIRST_NAME'S 'BIPIN' AND 'RUPESH' FROM WORKER TABLE.
+mysql>
+mysql> SELECT *
+    -> FROM WORKER
+    -> WHERE FIRST_NAME NOT IN ('BIPIN', 'RUPESH');
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | VIDYA      | CHORAGE   | 100000 | 2014-10-01 09:00:00 | HR         |
+|         2 | POONAM     | DAMBARKE  |  80000 | 2029-03-21 09:00:00 | Admin      |
+|         3 | ANIKET     | RANJAVN   | 300000 | 2018-09-01 09:00:00 | HR         |
+|         4 | APARNA     | DAMBARKE  | 100000 | 2013-02-01 09:00:00 | Admin      |
+|         5 | VIJAY      | JADHAV    | 500000 | 2031-05-01 09:00:00 | Admin      |
+|         8 | VISHAL     | CHORAGE   |  90000 | 2014-04-01 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> -- 14) WRITE AN SQL QUERY TO PRINT DETAILS OF THE WORKERS WHOSE FIRST_NAME ENDS WITH 'T' AND CONTAINS SIX ALPHABETS.
+mysql>
+mysql> SELECT *
+    -> FROM WORKER
+    -> WHERE RIGHT(FIRST_NAME,1) = 'T' AND LENGTH(FIRST_NAME)=6;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         3 | ANIKET     | RANJAVN   | 300000 | 2018-09-01 09:00:00 | HR         |
++-----------+------------+-----------+--------+---------------------+------------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql> -- 16) WRITE AN SQL QUERY TO PRINT DETAILS OF THE WORKERS WHO HAVE JOINED IN FEB 01.
+mysql>
+mysql> SELECT *
+    -> FROM WORKER
+    -> WHERE JOINING_DATE LIKE '13-02-%';
+Empty set, 1 warning (0.00 sec)
+
+mysql> -- LET US ASSUME THAT WE WANT TO CHECK FOR DUPLICATE RECORDS WHICH HAVE MATCHING DATA IN THE SALARY AND DEPARTMENT FIELDS TOGETHER.
+mysql> SELECT SALARY, DEPARTMENT ,COUNT(*)
+    -> FROM WORKER
+    -> GROUP BY  SALARY, DEPARTMENT
+    -> HAVING COUNT(*)>1;
+Empty set (0.00 sec)
+
+mysql> -- 18) HOW TO REMOVE DUPLICATE ROWS FROM TABLE?
+mysql>
+mysql> WITH DUPLICATE_RECORDS AS
+    -> (SELECT *, ROW_NUMBER()
+    -> OVER (PARTITION BY SALARY, DEPARTMENT) COUNT_NO
+    -> FROM WORKER )
+    -> DELETE FROM DUPLICATE_RECORDS
+    -> WHERE COUNT_NO>1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DUPLICATE_RECORDS AS
+(SELECT *, ROW_NUMBER()
+OVER (PARTITION BY SALARY, DEPARTM' at line 1
+mysql> -- IN 'MySQL', CTE(COMMON TABLE EXPRESSIONS) IS CREATED AS A READ ONLY FILE, HENCE NO UPDATE OR DELETE IS POSSIBLE.
+mysql> -- BUT THE SAME IS POSSIBLE IN 'MS SQL SERVER'. TO COUNTER THIS IN MySQL pROVIDES YOU WITH THE DELETE JOIN STATEMENT
+mysql> -- THT ALLOWS YOU TO REMOVE DUPLICATE ROWS QUICKLY.
+mysql>
+mysql> SET SQL_SAFE_UPDATES = 0; -- TO REMOVE THE SAFE UDATE MODE OTHERWISE MySQL DOES NOT ALLOW ANY UPDATE/DELETE.
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>
+mysql> DELETE W1 FROM WORKER W1
+    -> INNER JOIN WORKER W2
+    -> WHERE W1.WORKER_ID < W2.WORKER_ID
+    -> AND W1.SALARY= W2.SALARY
+    -> AND W1.DEPARTMENT=W2.DEPARTMENT;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>
+mysql> SELECT *, COUNT(*)
+    -> FROM WORKER
+    -> GROUP BY SALARY, DEPARTMENT
+    -> HAVING COUNT(*)>1; -- SHOWS THAT THERE ARE NO DUPLICATE RECORDS IN SALARY AND DEPARTMENT.
+Empty set (0.00 sec)
+
+mysql> -- 19) WRITE AN SQL QUERY TO SHOW ONLY ODD ROWS FROM A TABLE.
+mysql>
+mysql> WITH INDEXED_TABLE AS
+    -> (SELECT * , ROW_NUMBER()
+    -> OVER (ORDER BY WORKER_ID) ROW_NO
+    -> FROM WORKER)
+    -> SELECT * FROM INDEXED_TABLE
+    -> WHERE MOD(ROW_NO,2);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INDEXED_TABLE AS
+(SELECT * , ROW_NUMBER()
+OVER (ORDER BY WORKER_ID) ROW_NO
+FROM ' at line 1
+mysql> - 20) WRITE AN SQL QUERY TO CLONE A NEW TABLE FROM ANOTHER TABLE.
+    ->
+    -> -- i) SIMPLE CLONING - COPIES THE ENTIRE TABLE STRUCTURE WITH THE DATA
+    ->
+    -> CREATE TABLE WORKER_NEW SELECT * FROM WORKER;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '- 20) WRITE AN SQL QUERY TO CLONE A NEW TABLE FROM ANOTHER TABLE.
+
+
+
+CREATE TAB' at line 1
+mysql>
+mysql> -- ii) SHALLOW CLONING -- SHOWS ONLY THE TABLE STRUCTURE. NO DATA IS COPIED.
+mysql>
+mysql> CREATE TABLE WORKER_NEW LIKE WORKER;
+Query OK, 0 rows affected (0.10 sec)
+
+mysql>
+mysql> -- iii) DEEP CLONING
+mysql>
+mysql> CREATE TABLE WORKER_NEW LIKE WORKER;
+ERROR 1050 (42S01): Table 'worker_new' already exists
+mysql> INSERT INTO WORKER_NEW SELECT * FROM WORKER;
+Query OK, 8 rows affected (0.02 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> -- 21) WRITE AN SQL QUERY TO FETCH INTERSECTING RECORDS OF TWO TABLES
+mysql>
+mysql> -- LET'S CREATE TWO TABLES
+mysql> CREATE TABLE LIST1
+    -> (
+    -> ID INT,
+    -> NAME VARCHAR(100)
+    -> );
+Query OK, 0 rows affected (0.09 sec)
+
+mysql>
+mysql> INSERT INTO LIST1
+    -> VALUES
+    ->  (1,"Meera"),
+    ->  (2,"Gowri");
+Query OK, 2 rows affected (0.02 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> CREATE TABLE LIST2 LIKE LIST1;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql>
+mysql> INSERT INTO LIST2
+    -> VALUES
+    -> (2,"Gowri"),
+    -> (3,"Ved");
+Query OK, 2 rows affected (0.02 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> SELECT * FROM LIST1
+    -> INTERSECT
+    -> SELECT * FROM LIST2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECT * FROM LIST2' at line 3
+mysql> -- MySQL DOES NOT SUPPORT INTERSECT.
+mysql>
+mysql> -- 22) WRITE AN SQL QUERY TO SHOW RECORDS FROM ONE TABLE THAT ANOTHER TABLE DOES NOT HAVE.
+mysql>
+mysql> SELECT * FROM LIST
+    -> MINUS
+    -> SELECT * FROM LIST2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECT * FROM LIST2' at line 3
+mysql>
+mysql> -- 23) WRITE AN SQL QUERY TO SHOW THE TOP N (SAY 10) RECORDS OF THE TABLE.
+mysql>
+mysql> SELECT *
+    -> FROM WORKER
+    -> ORDER BY SALARY DESC
+    -> LIMIT 10;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         5 | VIJAY      | JADHAV    | 500000 | 2031-05-01 09:00:00 | Admin      |
+|         3 | ANIKET     | RANJAVN   | 300000 | 2018-09-01 09:00:00 | HR         |
+|         6 | BIPIN      | MASKAR    | 200000 | 2005-05-01 09:00:00 | Account    |
+|         1 | VIDYA      | CHORAGE   | 100000 | 2014-10-01 09:00:00 | HR         |
+|         4 | APARNA     | DAMBARKE  | 100000 | 2013-02-01 09:00:00 | Admin      |
+|         8 | VISHAL     | CHORAGE   |  90000 | 2014-04-01 09:00:00 | Admin      |
+|         2 | POONAM     | DAMBARKE  |  80000 | 2029-03-21 09:00:00 | Admin      |
+|         7 | RUPESH     | DAMBARKE  |  75000 | 2018-03-01 09:00:00 | Account    |
++-----------+------------+-----------+--------+---------------------+------------+
+8 rows in set (0.00 sec)
+
+mysql>
+mysql> -- 24) WRITE AN SQL QUERY TO DETERMINE THE NTH(SAY N=5) HIGHEST SALARY FROM A TABLE.
+mysql>
+mysql> SELECT SALARY
+    -> FROM WORKER
+    -> ORDER BY SALARY DESC
+    -> LIMIT 4,1;  -- 4=N-1
++--------+
+| SALARY |
++--------+
+| 100000 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> - 25) WRITE AN SQL QUERY TO DETERMINE THE 5TH(SAY N=5) WITHOUT USING TOP OR LIMIT METHOD.
+    ->
+    -> WITH SALARY_RANKING AS
+    -> (SELECT SALARY, DENSE_RANK()
+    -> OVER (ORDER BY SALARY DESC) RANKING
+    -> FROM WORKER )
+    -> SELECT SALARY
+    -> FROM SALARY_RANKING
+    -> WHERE RANKING=5;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '- 25) WRITE AN SQL QUERY TO DETERMINE THE 5TH(SAY N=5) WITHOUT USING TOP OR LIMI' at line 1
+mysql> -- 26) WRITE AN SQL QUERY TO FETCH THE LIST OF EMPLOYEES WITH THE SAME SALARY
+mysql>
+mysql> INSERT INTO WORKER
+    -> VALUES (004, 'Amitabh', 'Singh', 500000, '14-02-20 09.00.00', 'Admin'); -- ADDING A RECORD WITH SAME SALARY.
+ERROR 1062 (23000): Duplicate entry '4' for key 'PRIMARY'
+mysql>
+mysql> SELECT W1.FIRST_NAME, W1.LAST_NAME
+    -> FROM WORKER W1 JOIN WORKER W2
+    -> WHERE W1.SALARY= W2.SALARY
+    -> AND W1.WORKER_ID != W2.WORKER_ID;
++------------+-----------+
+| FIRST_NAME | LAST_NAME |
++------------+-----------+
+| APARNA     | DAMBARKE  |
+| VIDYA      | CHORAGE   |
++------------+-----------+
+2 rows in set (0.01 sec)
